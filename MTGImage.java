@@ -11,18 +11,15 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
+
 
 /**
  *
@@ -82,7 +79,7 @@ public class MTGImage {
             int minID = 1;
             int random = (minID ) + (int)(Math.random()* ( maxID - minID + 1));
             String baseURL = "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid="+random+"&type=card";
-            scrapeCard(random);
+
             System.out.println(baseURL);
             URL url = new URL(baseURL);
             BufferedImage img = ImageIO.read(url);
@@ -151,24 +148,5 @@ public class MTGImage {
         g2d.dispose();
         return resized;
     }
-    private static ArrayList<String> scrapeCard(int id){
-        ArrayList<String> cardInfo = new ArrayList();
-        try{
-
-        String url = "http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid="+id;
-        Document document = Jsoup.connect(url).followRedirects(true).timeout(6000).get();
-        //cardInfo.add(document.body().select(".cardtextbox").get(0).text());
-        //cardInfo.add(document.body().select(".value").get(0).text());
-            System.out.println(document.body().select(".cardtextbox").get(0).text());
-            System.out.println(document.body().select(".value").get(0).text());
-        /*for(String g : cardInfo){
-            System.out.println(g);
-        }*/
-        return cardInfo;
-        }
-        catch(Exception e){
-            //System.out.println(e.getClass() + "\n"+ e.getMessage());
-        }
-        return null;
-    }
+   
 }
